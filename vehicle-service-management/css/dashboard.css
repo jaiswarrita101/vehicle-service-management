@@ -1,0 +1,682 @@
+/* ==========================================================================
+   Vehicle Service Management System (VSMS) - Dashboard & Portal Styles
+   ========================================================================== */
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f1f5f9;
+}
+
+/* Sidebar */
+.dashboard-sidebar {
+  width: 270px;
+  background: #0f172a;
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 100;
+  transition: all var(--transition-normal);
+  border-right: 1px solid #1e293b;
+  flex-shrink: 0;
+}
+
+.sidebar-header {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid #1e293b;
+}
+
+.sidebar-header .logo-text {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.sidebar-header .logo-text span {
+  color: #38bdf8;
+}
+
+/* User Card in Sidebar */
+.sidebar-user-card {
+  padding: 1.25rem;
+  margin: 1rem 0.75rem;
+  background: #1e293b;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  border: 1px solid #334155;
+}
+
+.user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+}
+
+.user-info {
+  overflow: hidden;
+}
+
+.user-info .user-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-info .user-role {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: #38bdf8;
+}
+
+/* Sidebar Nav */
+.sidebar-nav {
+  flex-grow: 1;
+  padding: 0.5rem 0.75rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.nav-section-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  font-weight: 700;
+  padding: 0.75rem 0.75rem 0.35rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: var(--radius-md);
+  color: #94a3b8;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+}
+
+.sidebar-link i {
+  font-size: 1.1rem;
+  width: 22px;
+  text-align: center;
+}
+
+.sidebar-link:hover {
+  background: #1e293b;
+  color: #ffffff;
+}
+
+.sidebar-link.active {
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.sidebar-link .nav-count {
+  margin-left: auto;
+  background: #334155;
+  color: #ffffff;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.sidebar-link.active .nav-count {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.sidebar-footer {
+  padding: 1rem 0.75rem;
+  border-top: 1px solid #1e293b;
+}
+
+/* Main Dashboard Area */
+.dashboard-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+/* Dashboard Topbar */
+.dashboard-topbar {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  box-shadow: var(--shadow-xs);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.topbar-title h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.topbar-title p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.topbar-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--bg-card-alt);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.topbar-btn:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.topbar-btn .notification-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background: var(--danger);
+  border-radius: 50%;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+  padding: 1.75rem;
+  flex-grow: 1;
+}
+
+/* Stats Metric Cards */
+.stats-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.stat-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 1.35rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  transition: all var(--transition-fast);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-card-info p {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.stat-card-info h3 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+}
+
+.stat-card-sub {
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--text-muted);
+}
+
+.stat-card-sub.positive { color: var(--success); }
+.stat-card-sub.warning { color: var(--warning); }
+
+.stat-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+}
+
+.icon-blue { background: #dbeafe; color: #2563eb; }
+.icon-green { background: #d1fae5; color: #059669; }
+.icon-amber { background: #fef3c7; color: #d97706; }
+.icon-purple { background: #ede9fe; color: #7c3aed; }
+.icon-red { background: #fee2e2; color: #dc2626; }
+
+/* Dashboard Cards & Layout */
+.dashboard-grid-2 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.dashboard-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin-bottom: 1.75rem;
+}
+
+.dashboard-card-header {
+  padding: 1.15rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-card-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dashboard-card-body {
+  padding: 1.5rem;
+}
+
+/* Custom License Plate Badge */
+.license-plate {
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  border: 2px solid #1e293b;
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  font-family: monospace;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: #0f172a;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.license-plate::before {
+  content: 'IND';
+  font-size: 0.55rem;
+  color: #0369a1;
+  border-right: 1px solid #94a3b8;
+  padding-right: 4px;
+  margin-right: 5px;
+  font-family: sans-serif;
+  font-weight: 900;
+}
+
+/* Vehicle Profile Cards */
+.vehicles-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.vehicle-profile-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicle-profile-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+
+.vehicle-img-header {
+  position: relative;
+  height: 170px;
+}
+
+.vehicle-img-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vehicle-type-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.vehicle-card-details {
+  padding: 1.25rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicle-card-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background: var(--bg-main);
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-item span:first-child {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.spec-item span:last-child {
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Data Tables */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.vsms-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.vsms-table th {
+  background: #f8fafc;
+  padding: 0.85rem 1rem;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.vsms-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+.vsms-table tr:hover td {
+  background: #f8fafc;
+}
+
+/* Printable Invoice Card */
+.invoice-container {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  padding: 3rem;
+  max-width: 860px;
+  margin: 0 auto 2rem;
+  position: relative;
+}
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 2rem;
+}
+
+.invoice-badge-stamp {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  border: 3px solid;
+  padding: 0.4rem 1.25rem;
+  font-weight: 900;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  transform: rotate(8deg);
+  border-radius: 8px;
+  opacity: 0.85;
+}
+
+.invoice-badge-stamp.paid {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.invoice-badge-stamp.pending {
+  border-color: var(--warning);
+  color: var(--warning);
+}
+
+.invoice-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.invoice-meta-block h5 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.invoice-summary-box {
+  margin-left: auto;
+  width: 320px;
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+}
+
+.invoice-summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.invoice-summary-row.grand-total {
+  border-top: 2px solid var(--border-color);
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+/* Service Reminders Banner */
+.reminder-card {
+  background: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-xs);
+}
+
+.reminder-content {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.reminder-icon {
+  font-size: 1.5rem;
+  color: #f59e0b;
+}
+
+/* Quick Slot Grid */
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.slot-btn {
+  padding: 0.65rem 0.5rem;
+  border: 1.5px solid var(--border-color);
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.slot-btn:hover:not(.booked) {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.slot-btn.selected {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+.slot-btn.booked {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* Tab Navigation */
+.nav-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border-color);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.nav-tab-item {
+  padding: 0.75rem 0.25rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.nav-tab-item:hover {
+  color: var(--accent);
+}
+
+.nav-tab-item.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* Charts Wrapper */
+.chart-card-canvas {
+  height: 280px;
+  position: relative;
+}
+
+/* Print Styles */
+@media print {
+  .dashboard-sidebar, .dashboard-topbar, .btn, .no-print {
+    display: none !important;
+  }
+  .dashboard-main {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+  .invoice-container {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+}

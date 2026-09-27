@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Vehicle Service Management System</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); justify-content: center; align-items: center; padding: 2rem 1rem;">
+
+  <div style="width: 100%; max-width: 460px; margin: auto;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <a href="index.html" class="brand-logo" style="justify-content: center; color: #fff;">
+        <div class="logo-icon"><i class="fa-solid fa-car-burst"></i></div>
+        <div class="logo-text">VSMS <span>AutoCare</span></div>
+      </a>
+      <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem;">Access your personalized vehicle service management portal</p>
+    </div>
+
+    <div class="dashboard-card" style="border: 1px solid rgba(255,255,255,0.1); box-shadow: var(--shadow-xl);">
+      <div class="dashboard-card-body" style="padding: 2rem;">
+        <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center;">Welcome Back</h2>
+
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group" style="margin-bottom: 1.25rem;">
+            <label><i class="fa-solid fa-envelope text-accent"></i> Email Address</label>
+            <input type="email" id="login-email" class="form-control" placeholder="name@example.com" value="customer@vsms.com" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label><i class="fa-solid fa-lock text-accent"></i> Password</label>
+              <a href="#" onclick="showToast('For demo: all demo accounts use password123', 'info')" style="font-size: 0.75rem;">Forgot?</a>
+            </div>
+            <input type="password" id="login-password" class="form-control" placeholder="••••••••" value="password123" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-bottom: 1rem;">
+            <i class="fa-solid fa-right-to-bracket"></i> Sign In to Account
+          </button>
+        </form>
+
+        <div style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+          Don't have an account yet? <a href="register.html" class="font-bold">Register here</a>
+        </div>
+
+        <!-- 1-Click Role Switcher / Demo Login -->
+        <div style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+          <div style="text-align: center; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: var(--text-muted); margin-bottom: 0.85rem;">
+            ⚡ Quick Demo Logins (Instant Switch)
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
+            <button type="button" onclick="quickDemoLogin('customer')" class="btn btn-secondary btn-sm" style="font-size: 0.75rem;">
+              <i class="fa-solid fa-user text-accent"></i> Customer
+            </button>
+            <button type="button" onclick="quickDemoLogin('advisor')" class="btn btn-secondary btn-sm" style="font-size: 0.75rem;">
+              <i class="fa-solid fa-user-tie text-purple"></i> Service Advisor
+            </button>
+            <button type="button" onclick="quickDemoLogin('technician')" class="btn btn-secondary btn-sm" style="font-size: 0.75rem;">
+              <i class="fa-solid fa-wrench text-warning"></i> Technician
+            </button>
+            <button type="button" onclick="quickDemoLogin('inventory')" class="btn btn-secondary btn-sm" style="font-size: 0.75rem;">
+              <i class="fa-solid fa-boxes-stacked text-danger"></i> Inventory Mgr
+            </button>
+            <button type="button" onclick="quickDemoLogin('admin')" class="btn btn-secondary btn-sm" style="grid-column: span 2; font-size: 0.75rem;">
+              <i class="fa-solid fa-shield-halved text-success"></i> Super Administrator
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+      <a href="index.html" style="color: #94a3b8; font-size: 0.85rem;"><i class="fa-solid fa-arrow-left"></i> Return to Homepage</a>
+    </div>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

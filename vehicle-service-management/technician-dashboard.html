@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technician Workshop Bay | VSMS</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar">
+      <div class="sidebar-header">
+        <div class="logo-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);"><i class="fa-solid fa-wrench"></i></div>
+        <div class="logo-text">VSMS <span>Mechanic</span></div>
+      </div>
+
+      <div class="sidebar-user-card">
+        <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=150&q=80" alt="Tech Avatar" class="user-avatar dashboard-user-avatar">
+        <div class="user-info">
+          <div class="user-name dashboard-user-name">Vikram Singh</div>
+          <div class="user-role dashboard-user-role" style="color: #fbbf24;">MASTER MECHANIC</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Bay Operations</div>
+        <a href="technician-dashboard.html" class="sidebar-link active">
+          <i class="fa-solid fa-screwdriver-wrench"></i> Assigned Job Queue
+        </a>
+        <a href="inventory-dashboard.html" class="sidebar-link">
+          <i class="fa-solid fa-boxes-stacked"></i> Check Spares Stock
+        </a>
+
+        <div class="nav-section-title">Portals Switcher</div>
+        <a href="customer-dashboard.html" class="sidebar-link"><i class="fa-solid fa-user"></i> Customer View</a>
+        <a href="advisor-dashboard.html" class="sidebar-link"><i class="fa-solid fa-user-tie"></i> Advisor Desk</a>
+        <a href="admin-dashboard.html" class="sidebar-link"><i class="fa-solid fa-shield-halved"></i> Admin Control</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button onclick="logoutUser()" class="btn btn-secondary btn-block btn-sm">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+      <header class="dashboard-topbar">
+        <div class="topbar-left">
+          <button class="mobile-menu-btn" onclick="document.querySelector('.dashboard-sidebar').classList.toggle('show')">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="topbar-title">
+            <h2>Mechanical Workshop Bay #2</h2>
+            <p>Lead Master Technician Queue: Inspections, Spare Parts & Quality Approvals</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+        <!-- Metrics Row -->
+        <div class="stats-cards-grid">
+          <div class="stat-card">
+            <div class="stat-card-info">
+              <p>Total Assigned Jobs</p>
+              <h3 id="stat-tech-assigned">0</h3>
+              <div class="stat-card-sub positive"><i class="fa-solid fa-clipboard-list"></i> In your bay queue</div>
+            </div>
+            <div class="stat-card-icon icon-amber"><i class="fa-solid fa-wrench"></i></div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-info">
+              <p>In Progress / On Hoist</p>
+              <h3 id="stat-tech-progress">0</h3>
+              <div class="stat-card-sub warning"><i class="fa-solid fa-screwdriver"></i> Active wrenching</div>
+            </div>
+            <div class="stat-card-icon icon-blue"><i class="fa-solid fa-gears"></i></div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-info">
+              <p>Quality Check Stage</p>
+              <h3 id="stat-tech-qc">0</h3>
+              <div class="stat-card-sub positive"><i class="fa-solid fa-shield-halved"></i> Final road test</div>
+            </div>
+            <div class="stat-card-icon icon-purple"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-info">
+              <p>Completed This Month</p>
+              <h3 id="stat-tech-completed">0</h3>
+              <div class="stat-card-sub positive"><i class="fa-solid fa-award"></i> 4.9 Star efficiency</div>
+            </div>
+            <div class="stat-card-icon icon-green"><i class="fa-solid fa-check-double"></i></div>
+          </div>
+        </div>
+
+        <!-- Assigned Job Cards Table -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-header">
+            <h3><i class="fa-solid fa-clipboard-list text-accent"></i> My Assigned Vehicle Jobs</h3>
+          </div>
+          <div class="dashboard-card-body" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="vsms-table">
+                <thead>
+                  <tr>
+                    <th>Job Card ID</th>
+                    <th>Vehicle Details</th>
+                    <th>Reported Issues & Parts</th>
+                    <th>Status</th>
+                    <th>Assigned On</th>
+                    <th class="text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tech-jobs-table-body">
+                  <!-- Injected by js/dashboard.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initTechnicianDashboard();
+    });
+  </script>
+</body>
+</html>

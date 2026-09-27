@@ -1,0 +1,21 @@
+{
+  "name": "vehicle-service-management-system",
+  "version": "1.0.0",
+  "description": "Full-Featured Vehicle Service Management System (VSMS) with Multi-Role Dashboards, Digital Job Cards, Live Telemetry Tracking, and 18% GST Invoicing",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js",
+    "test": "node test-suite.js"
+  },
+  "keywords": [
+    "vehicle-management",
+    "automotive-service",
+    "job-cards",
+    "workshop",
+    "telemetry",
+    "garage-management"
+  ],
+  "author": "VSMS Automotive Solutions",
+  "license": "MIT"
+}

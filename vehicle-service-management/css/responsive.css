@@ -1,0 +1,205 @@
+/* ==========================================================================
+   Vehicle Service Management System (VSMS) - Responsive Breakpoints
+   ========================================================================== */
+
+/* Max 1199px (Desktop & Small Laptops) */
+@media (max-width: 1199.98px) {
+  .hero-title {
+    font-size: 2.6rem;
+  }
+  .services-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Max 991px (Tablets & Mobile Landscape) */
+@media (max-width: 991.98px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-stats {
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .floating-card-1, .floating-card-2 {
+    display: none;
+  }
+
+  .finder-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .finder-form-grid .btn {
+    grid-column: span 2;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 74px;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    display: none;
+    z-index: 999;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-item {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  /* Dashboard Responsive */
+  .dashboard-sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    height: 100vh;
+    box-shadow: var(--shadow-xl);
+    transition: left var(--transition-normal);
+  }
+
+  .dashboard-sidebar.show {
+    left: 0;
+  }
+
+  .dashboard-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .stepper-timeline {
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    justify-content: flex-start;
+    gap: 1.5rem;
+  }
+
+  .stepper-timeline::before, .stepper-timeline-progress {
+    display: none;
+  }
+
+  .step-node {
+    flex-shrink: 0;
+  }
+}
+
+/* Max 767px (Large Phones) */
+@media (max-width: 767.98px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .finder-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .finder-form-grid .btn {
+    grid-column: span 1;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-cards-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .slot-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .invoice-header {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .invoice-meta-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .invoice-badge-stamp {
+    position: static;
+    display: inline-block;
+    margin-bottom: 1rem;
+    transform: none;
+  }
+
+  .invoice-summary-box {
+    width: 100%;
+  }
+
+  .chatbot-popup {
+    width: calc(100vw - 30px);
+    right: 15px;
+    bottom: 90px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+}
+
+/* Max 480px (Small Phones) */
+@media (max-width: 480px) {
+  .stats-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .dashboard-content {
+    padding: 1rem;
+  }
+
+  .vehicles-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-dialog {
+    margin: 0.75rem;
+  }
+}

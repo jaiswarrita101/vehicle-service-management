@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Command Center | VSMS</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar">
+      <div class="sidebar-header">
+        <div class="logo-icon" style="background: linear-gradient(135deg, #10b981 0%, #047857 100%);"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="logo-text">VSMS <span>Admin</span></div>
+      </div>
+
+      <div class="sidebar-user-card">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Admin Avatar" class="user-avatar dashboard-user-avatar">
+        <div class="user-info">
+          <div class="user-name dashboard-user-name">Sarah Jenkins</div>
+          <div class="user-role dashboard-user-role" style="color: #34d399;">SUPER ADMIN</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Executive Operations</div>
+        <a href="admin-dashboard.html" class="sidebar-link active">
+          <i class="fa-solid fa-chart-pie"></i> Executive Overview
+        </a>
+        <a href="#customers-section" class="sidebar-link">
+          <i class="fa-solid fa-users"></i> Customers Master
+        </a>
+        <a href="#bookings-section" class="sidebar-link">
+          <i class="fa-solid fa-calendar-check"></i> All Bookings
+        </a>
+        <a href="#jobcards-section" class="sidebar-link">
+          <i class="fa-solid fa-clipboard-list"></i> Workshop Job Cards
+        </a>
+        <a href="#invoices-section" class="sidebar-link">
+          <i class="fa-solid fa-file-invoice-dollar"></i> Revenue & Invoices
+        </a>
+        <a href="inventory-dashboard.html" class="sidebar-link">
+          <i class="fa-solid fa-boxes-stacked"></i> Spares Inventory
+        </a>
+
+        <div class="nav-section-title">Portals Switcher</div>
+        <a href="customer-dashboard.html" class="sidebar-link"><i class="fa-solid fa-user"></i> Customer Portal</a>
+        <a href="advisor-dashboard.html" class="sidebar-link"><i class="fa-solid fa-user-tie"></i> Advisor Desk</a>
+        <a href="technician-dashboard.html" class="sidebar-link"><i class="fa-solid fa-wrench"></i> Technician Bay</a>
+      </nav>
+
+      <div class="sidebar-footer" style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <button onclick="resetDbAction()" class="btn btn-secondary btn-block btn-sm" title="Reset sample data">
+          <i class="fa-solid fa-rotate-left text-warning"></i> Reset Database
+        </button>
+        <button onclick="logoutUser()" class="btn btn-secondary btn-block btn-sm">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+      <header class="dashboard-topbar">
+        <div class="topbar-left">
+          <button class="mobile-menu-btn" onclick="document.querySelector('.dashboard-sidebar').classList.toggle('show')">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="topbar-title">
+            <h2>Executive Command Center & Reports</h2>
+            <p>Overall workshop performance, revenue analytics, resource allocation, and customer records</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+        <!-- 7-Metric KPI Strip -->
+        <div class="stats-cards-grid">
+          <div class="stat-card">
+            <div class="stat-card-info">
+              <p>Total Customers</p>
+              <h3 id="admin-stat-customers">0</h3>
+              <div class="stat-card-sub positive"><i class="fa-solid fa-user-plus"></i> Verified accounts</div>
+            </div>
+            <div class="stat-card-icon icon-blue"><i class="fa-solid fa-users"></i></div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-info">
+              <p>Total Vehicles</p>
+              <h3 id="admin-stat-vehicles">0</h3>
+              <div class="stat-card-sub positive"><i class="fa-solid fa-car"></i> Cars & 2-Wheelers</div>
+            </div>
+            <div class="stat-card-icon icon-purple"><i class="fa-solid fa-car-side"></i></div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-info">
+              <p>Total Bookings</p>
+              <h3 id="admin-stat-bookings">0</h3>
+              <div class="stat-card-sub positive"><i class="fa-solid fa-calendar-check"></i> Lifetime volume</div>
+            </div>
+            <div class="stat-card-icon icon-amber"><i class="fa-solid fa-bookmark"></i></div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-info">
+              <p>Total Revenue</p>
+              <h3 id="admin-stat-revenue" style="color: var(--success);">₹0.00</h3>
+              <div class="stat-card-sub positive"><i class="fa-solid fa-chart-line"></i> Settled payments</div>
+            </div>
+            <div class="stat-card-icon icon-green"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+          </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="dashboard-grid-2">
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3><i class="fa-solid fa-chart-line text-accent"></i> Monthly Service Bookings Volume (6-Month Trend)</h3>
+            </div>
+            <div class="dashboard-card-body">
+              <div class="chart-card-canvas">
+                <canvas id="bookings-trend-chart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3><i class="fa-solid fa-chart-pie text-accent"></i> Service Categories Breakdown</h3>
+            </div>
+            <div class="dashboard-card-body">
+              <div class="chart-card-canvas">
+                <canvas id="categories-pie-chart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 1: Customer Master -->
+        <div class="dashboard-card" id="customers-section">
+          <div class="dashboard-card-header">
+            <h3><i class="fa-solid fa-users text-accent"></i> Registered Customers Directory</h3>
+          </div>
+          <div class="dashboard-card-body" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="vsms-table">
+                <thead>
+                  <tr>
+                    <th>Customer ID</th>
+                    <th>Customer Name & Email</th>
+                    <th>Phone</th>
+                    <th>Registered Vehicles</th>
+                    <th>Member Since</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-customers-table-body">
+                  <!-- Injected by js/dashboard.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Bookings -->
+        <div class="dashboard-card" id="bookings-section">
+          <div class="dashboard-card-header">
+            <h3><i class="fa-solid fa-calendar-days text-accent"></i> Recent Appointments Queue</h3>
+          </div>
+          <div class="dashboard-card-body" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="vsms-table">
+                <thead>
+                  <tr>
+                    <th>Booking ID</th>
+                    <th>Customer</th>
+                    <th>Vehicle Plate</th>
+                    <th>Scheduled Slot</th>
+                    <th>Status</th>
+                    <th class="text-right">Details</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-bookings-table-body">
+                  <!-- Injected by js/dashboard.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Job Cards -->
+        <div class="dashboard-card" id="jobcards-section">
+          <div class="dashboard-card-header">
+            <h3><i class="fa-solid fa-clipboard-list text-accent"></i> Active Workshop Job Cards</h3>
+          </div>
+          <div class="dashboard-card-body" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="vsms-table">
+                <thead>
+                  <tr>
+                    <th>Job Card ID</th>
+                    <th>Customer</th>
+                    <th>Vehicle Model</th>
+                    <th>Assigned Lead Tech</th>
+                    <th>Current Status</th>
+                    <th class="text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-jobcards-table-body">
+                  <!-- Injected by js/dashboard.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Invoices -->
+        <div class="dashboard-card" id="invoices-section">
+          <div class="dashboard-card-header">
+            <h3><i class="fa-solid fa-file-invoice-dollar text-accent"></i> Master Invoices & Billing Log</h3>
+          </div>
+          <div class="dashboard-card-body" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="vsms-table">
+                <thead>
+                  <tr>
+                    <th>Invoice ID</th>
+                    <th>Customer</th>
+                    <th>Vehicle Plate</th>
+                    <th>Total Amount</th>
+                    <th>Payment Status</th>
+                    <th class="text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-invoices-table-body">
+                  <!-- Injected by js/dashboard.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script>
+    function resetDbAction() {
+      if (confirm('Reset database back to initial sample state?')) {
+        window.DB.resetToDefault();
+        showToast('Database reset to defaults', 'success');
+        setTimeout(() => location.reload(), 400);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initAdminDashboard();
+    });
+  </script>
+</body>
+</html>

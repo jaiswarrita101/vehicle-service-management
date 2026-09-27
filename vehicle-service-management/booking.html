@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Service Appointment | Vehicle Service Management System</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="vsms-navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon"><i class="fa-solid fa-car-burst"></i></div>
+        <div class="logo-text">VSMS <span>AutoCare</span></div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="services.html" class="nav-item"><i class="fa-solid fa-screwdriver-wrench"></i> Services</a></li>
+        <li><a href="booking.html" class="nav-item active"><i class="fa-solid fa-calendar-plus"></i> Book Service</a></li>
+        <li><a href="track-service.html" class="nav-item"><i class="fa-solid fa-location-dot"></i> Track Service</a></li>
+        <li><a href="customer-dashboard.html" class="nav-item"><i class="fa-solid fa-car"></i> My Vehicles</a></li>
+      </ul>
+
+      <div class="nav-cta-group">
+        <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Register</a>
+      </div>
+
+      <button class="mobile-menu-btn" aria-label="Toggle Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div style="background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); color: #fff; padding: 2.5rem 0 2rem;">
+    <div class="container text-center">
+      <span class="badge badge-primary" style="margin-bottom: 0.5rem;">Fast 2-Minute Booking</span>
+      <h1 style="color: #ffffff; font-size: 2.2rem; margin-bottom: 0.35rem;">Schedule Service Appointment</h1>
+      <p style="color: #cbd5e1; max-width: 550px; margin: 0 auto; font-size: 0.95rem;">
+        Choose your vehicle, select maintenance packages, and reserve your preferred workshop time slot.
+      </p>
+    </div>
+  </div>
+
+  <!-- Booking Main Container -->
+  <main class="container" style="padding: 2.5rem 1.25rem 4rem;">
+    <form id="vsms-booking-form">
+      <div class="dashboard-grid-2">
+        <!-- Form Left Column -->
+        <div>
+          <!-- Section 1: Customer Contact -->
+          <div class="dashboard-card" style="margin-bottom: 1.5rem;">
+            <div class="dashboard-card-header" style="display: flex; justify-content: space-between; align-items: center;">
+              <h3><i class="fa-solid fa-user text-accent"></i> 1. Customer Information</h3>
+              <button type="button" onclick="quickAutoFillBooking()" class="btn btn-secondary btn-sm" style="background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd;">
+                <i class="fa-solid fa-bolt text-warning"></i> ⚡ 1-Click Auto-Fill Form
+              </button>
+            </div>
+            <div class="dashboard-card-body">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                <div class="form-group">
+                  <label>Full Name *</label>
+                  <input type="text" id="book-customer-name" class="form-control" placeholder="e.g. John Doe" required>
+                </div>
+                <div class="form-group">
+                  <label>Mobile Number *</label>
+                  <input type="tel" id="book-customer-phone" class="form-control" placeholder="+91 98765 43210" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" id="book-customer-email" class="form-control" placeholder="john@example.com" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Vehicle Selection -->
+          <div class="dashboard-card" style="margin-bottom: 1.5rem;">
+            <div class="dashboard-card-header">
+              <h3><i class="fa-solid fa-car-side text-accent"></i> 2. Select Vehicle</h3>
+            </div>
+            <div class="dashboard-card-body">
+              <div class="form-group" style="margin-bottom: 1rem;">
+                <label>Registered Vehicle:</label>
+                <select id="book-vehicle-select" class="form-control">
+                  <!-- Populated dynamically by booking.js -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Vehicle Registration Number (License Plate):</label>
+                <input type="text" id="book-vehicle-no" class="form-control font-bold" placeholder="e.g. MH-02-CB-4521" style="letter-spacing: 0.05em; text-transform: uppercase;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Service Selection -->
+          <div class="dashboard-card" style="margin-bottom: 1.5rem;">
+            <div class="dashboard-card-header">
+              <h3><i class="fa-solid fa-wrench text-accent"></i> 3. Select Required Services</h3>
+            </div>
+            <div class="dashboard-card-body">
+              <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 1rem;">
+                Check all applicable maintenance packages or repairs:
+              </p>
+              <div id="booking-services-list" style="display: flex; flex-direction: column; gap: 0.65rem; max-height: 380px; overflow-y: auto; padding-right: 0.5rem;">
+                <!-- Populated dynamically by booking.js -->
+              </div>
+
+              <div class="form-group" style="margin-top: 1.25rem;">
+                <label><i class="fa-solid fa-triangle-exclamation text-warning"></i> Additional Complaints or Specific Problems:</label>
+                <textarea id="book-problems" class="form-control" rows="2" placeholder="e.g. Squeaking noise when turning steering left, AC cooling sluggish in afternoon..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Date & Available Slots -->
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3><i class="fa-solid fa-calendar-days text-accent"></i> 4. Date & Time Slot Selection</h3>
+            </div>
+            <div class="dashboard-card-body">
+              <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label>Preferred Service Date *</label>
+                <input type="date" id="book-date" class="form-control" required>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label>Available Workshop Bay Slots (Select one): *</label>
+                <div id="booking-slots-container" class="slot-grid">
+                  <!-- Injected by booking.js -->
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label><i class="fa-solid fa-warehouse text-accent"></i> Select Service Center Hub:</label>
+                <select id="book-service-center" class="form-control">
+                  <option>Central Mega Hub - Andheri West, Mumbai</option>
+                  <option>Koregaon Park Tech Center, Pune</option>
+                  <option>Bandra Express Quick-Lube Center, Mumbai</option>
+                  <option>Thane Express Bay, Thane</option>
+                </select>
+              </div>
+
+              <!-- Pickup & Drop & Express Priority Toggles -->
+              <div style="background: var(--bg-main); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 0.75rem;">
+                <label style="display: flex; align-items: center; gap: 0.65rem; font-weight: 700; cursor: pointer;">
+                  <input type="checkbox" id="book-express-toggle" style="width: 18px; height: 18px;">
+                  <span><i class="fa-solid fa-bolt text-warning"></i> ⚡ Express 60-Minute Fast-Track Service (Priority Bay)</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.65rem; font-weight: 700; cursor: pointer;">
+                  <input type="checkbox" id="book-pickup-toggle" style="width: 18px; height: 18px;">
+                  <span><i class="fa-solid fa-truck-pickup text-accent"></i> Request Doorstep Vehicle Pickup & Drop</span>
+                </label>
+                <div id="pickup-address-wrap" style="display: none; margin-top: 0.25rem;">
+                  <input type="text" id="book-pickup-address" class="form-control" placeholder="Enter complete pickup & delivery address">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Summary Sticky Column -->
+        <div>
+          <div class="dashboard-card" style="position: sticky; top: 90px;">
+            <div class="dashboard-card-header">
+              <h3><i class="fa-solid fa-receipt text-accent"></i> Booking Summary</h3>
+            </div>
+            <div class="dashboard-card-body">
+              <div style="margin-bottom: 1rem;">
+                <span id="booking-summary-count" class="badge badge-primary">0 services selected</span>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.25rem; font-size: 0.9rem;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span class="text-muted">Services Estimate:</span>
+                  <b id="booking-summary-subtotal">₹0.00</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span class="text-muted">Standard GST (18%):</span>
+                  <span id="booking-summary-gst">₹0.00</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-top: 2px solid var(--border-color); padding-top: 0.75rem; font-size: 1.25rem; font-weight: 800; color: var(--primary);">
+                  <span>Estimated Total:</span>
+                  <span id="booking-summary-total">₹0.00</span>
+                </div>
+              </div>
+
+              <div style="background: var(--bg-main); padding: 0.85rem; border-radius: var(--radius-md); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                <i class="fa-solid fa-circle-check text-success"></i> Free 25-point digital safety inspection included.<br>
+                <i class="fa-solid fa-circle-check text-success"></i> Pay online or at service center after quality check.
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block btn-lg" style="box-shadow: var(--shadow-lg);">
+                <i class="fa-solid fa-circle-check"></i> Confirm Appointment
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <!-- Booking Confirmation Success Modal -->
+  <div class="modal-backdrop" id="booking-confirmation-modal">
+    <div class="modal-dialog">
+      <div class="modal-header" style="background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%); color: #fff;">
+        <h3 class="modal-title" style="color: #fff;"><i class="fa-solid fa-circle-check"></i> Booking Confirmed!</h3>
+      </div>
+      <div class="modal-body" style="text-align: center; padding: 2rem;">
+        <div style="width: 70px; height: 70px; background: var(--success-light); color: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.25rem; margin: 0 auto 1.25rem;">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h2 style="font-size: 1.6rem; margin-bottom: 0.25rem;">Appointment Scheduled</h2>
+        <p class="text-muted" style="margin-bottom: 1.5rem;">Your service slot has been reserved in our workshop queue.</p>
+
+        <div style="background: var(--bg-main); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.25rem; text-align: left; font-size: 0.9rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span class="text-muted">Booking Reference:</span>
+            <b id="conf-booking-id" class="text-accent" style="font-size: 1.05rem;">-</b>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span class="text-muted">Vehicle:</span>
+            <b id="conf-vehicle">-</b>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span class="text-muted">Date & Time:</span>
+            <b id="conf-datetime">-</b>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span class="text-muted">Service Center:</span>
+            <span id="conf-center" style="font-size: 0.8rem; font-weight: 600;">-</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span class="text-muted">Services:</span>
+            <span id="conf-services" style="font-weight: 600;">-</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-top: 1px dashed var(--border-color); padding-top: 0.5rem;">
+            <span class="text-muted">Estimated Cost:</span>
+            <b id="conf-cost" style="color: var(--primary); font-size: 1.1rem;">-</b>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; justify-content: center;">
+          <a id="conf-track-btn" href="track-service.html" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-location-crosshairs"></i> Track Live Status
+          </a>
+          <a href="customer-dashboard.html" class="btn btn-secondary btn-lg">
+            My Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="vsms-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 Vehicle Service Management System (VSMS). All Rights Reserved.</div>
+        <div><a href="services.html" class="text-accent font-bold">Services</a> | <a href="track-service.html" class="text-accent font-bold">Track Status</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/booking.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initBookingForm();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshop Job Card Management | VSMS</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body style="background-color: var(--bg-main);">
+
+  <!-- Navbar -->
+  <nav class="vsms-navbar no-print">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon"><i class="fa-solid fa-car-burst"></i></div>
+        <div class="logo-text">VSMS <span>Workshop</span></div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="advisor-dashboard.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Advisor Desk</a></li>
+        <li><a href="technician-dashboard.html" class="nav-item"><i class="fa-solid fa-wrench"></i> Technician Bay</a></li>
+        <li><a href="inventory-dashboard.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Spares Inventory</a></li>
+        <li><a href="admin-dashboard.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Admin</a></li>
+      </ul>
+
+      <div class="nav-cta-group">
+        <a href="advisor-dashboard.html" class="btn btn-secondary btn-sm">
+          <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Job Card Main Container -->
+  <main class="container" style="padding: 2.5rem 1.25rem 4rem;">
+    <div id="job-card-main-container">
+      <!-- Injected by js/jobcard.js -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="vsms-footer no-print">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 Vehicle Service Management System (VSMS). Digital Job Card & Work Order Engine.</div>
+        <div><a href="advisor-dashboard.html" class="text-accent font-bold">Return to Dashboard</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/jobcard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      loadJobCardView();
+    });
+  </script>
+</body>
+</html>

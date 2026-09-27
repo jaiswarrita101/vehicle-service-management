@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Service Status | Vehicle Service Management System</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="vsms-navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon"><i class="fa-solid fa-car-burst"></i></div>
+        <div class="logo-text">VSMS <span>AutoCare</span></div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="services.html" class="nav-item"><i class="fa-solid fa-screwdriver-wrench"></i> Services</a></li>
+        <li><a href="booking.html" class="nav-item"><i class="fa-solid fa-calendar-plus"></i> Book Service</a></li>
+        <li><a href="track-service.html" class="nav-item active"><i class="fa-solid fa-location-dot"></i> Track Service</a></li>
+        <li><a href="customer-dashboard.html" class="nav-item"><i class="fa-solid fa-car"></i> My Vehicles</a></li>
+      </ul>
+
+      <div class="nav-cta-group">
+        <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Register</a>
+      </div>
+
+      <button class="mobile-menu-btn" aria-label="Toggle Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div style="background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); color: #fff; padding: 3rem 0 2.5rem;">
+    <div class="container text-center">
+      <span class="badge badge-primary" style="margin-bottom: 0.5rem;">Live Workshop Telemetry</span>
+      <h1 style="color: #ffffff; font-size: 2.25rem; margin-bottom: 0.5rem;">Track Vehicle Service Progress</h1>
+      <p style="color: #cbd5e1; max-width: 550px; margin: 0 auto;">
+        Enter your Booking Reference ID (e.g. BKG-1001) or Vehicle Plate Number to view stage-by-stage status.
+      </p>
+
+      <!-- Tracker Search Form -->
+      <form id="track-search-form" onsubmit="handleTrackSearch(event)" style="max-width: 580px; margin: 2rem auto 0; display: flex; gap: 0.5rem;">
+        <input type="text" id="track-query-input" class="form-control" placeholder="Enter Booking ID (e.g. BKG-1001) or Plate No (e.g. MH-02-CB-4521)" style="background: #fff; height: 50px; font-size: 1rem;" required>
+        <button type="submit" class="btn btn-primary btn-lg" style="height: 50px;">
+          <i class="fa-solid fa-magnifying-glass"></i> Track
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Tracking Container -->
+  <main class="container" style="padding: 2.5rem 1.25rem 4rem;">
+    <div id="tracking-result-container">
+      <!-- Injected by JavaScript -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="vsms-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 Vehicle Service Management System (VSMS). All Rights Reserved.</div>
+        <div><a href="booking.html" class="text-accent font-bold">Book Another Service</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    const STAGES = [
+      'Booked',
+      'Vehicle Received',
+      'Inspection',
+      'Job Card Created',
+      'Technician Assigned',
+      'Repair/Service In Progress',
+      'Quality Check',
+      'Ready for Delivery',
+      'Completed'
+    ];
+
+    function handleTrackSearch(e) {
+      if (e) e.preventDefault();
+      const q = document.getElementById('track-query-input').value.trim();
+      if (!q) return;
+
+      const url = new URL(window.location);
+      url.searchParams.set('id', q);
+      window.history.pushState({}, '', url);
+
+      renderTracking(q);
+    }
+
+    function renderTracking(query) {
+      const container = document.getElementById('tracking-result-container');
+      if (!container) return;
+
+      const bookings = window.DB.getBookings();
+      const booking = bookings.find(b => 
+        b.bookingId.toLowerCase() === query.toLowerCase() || 
+        b.vehicleNo.toLowerCase() === query.toLowerCase().replace(/\s+/g, '') ||
+        b.vehicleNo.toLowerCase().includes(query.toLowerCase())
+      );
+
+      if (!booking) {
+        container.innerHTML = `
+          <div class="dashboard-card text-center" style="padding: 3rem;">
+            <i class="fa-solid fa-triangle-exclamation text-warning" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+            <h3>No Active Service Record Found</h3>
+            <p class="text-muted">We couldn't find any appointment matching "<b>${query}</b>".</p>
+            <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem; justify-content: center;">
+              <button onclick="renderTracking('BKG-1001')" class="btn btn-secondary btn-sm">Try Demo BKG-1001</button>
+              <button onclick="renderTracking('BKG-1002')" class="btn btn-secondary btn-sm">Try Demo BKG-1002</button>
+              <a href="booking.html" class="btn btn-primary btn-sm">Book New Appointment</a>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const jobCard = booking.jobCardId ? window.DB.getJobCardById(booking.jobCardId) : null;
+      const currentStageIndex = STAGES.indexOf(booking.status);
+      const progressPct = Math.max(0, Math.min(100, (currentStageIndex / (STAGES.length - 1)) * 100));
+
+      container.innerHTML = `
+        <div class="tracking-stepper-container" style="margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <span class="text-muted" style="font-size: 0.8rem; text-transform: uppercase;">Tracking Order</span>
+              <h2 style="font-size: 1.5rem; margin: 0;">#${booking.bookingId} • ${booking.vehicleModel}</h2>
+            </div>
+            <div>
+              ${getStatusBadge(booking.status)}
+            </div>
+          </div>
+
+          <!-- Stepper Timeline -->
+          <div class="stepper-timeline">
+            <div class="stepper-timeline-progress" style="width: ${progressPct}%;"></div>
+            ${STAGES.map((stg, i) => `
+              <div class="step-node ${i < currentStageIndex ? 'completed' : (i === currentStageIndex ? 'active' : '')}">
+                <div class="step-circle">
+                  ${i < currentStageIndex ? '<i class="fa-solid fa-check"></i>' : (i + 1)}
+                </div>
+                <div class="step-label">${stg}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="dashboard-grid-2">
+          <div>
+            <div class="dashboard-card">
+              <div class="dashboard-card-header">
+                <h3><i class="fa-solid fa-file-invoice text-accent"></i> Service Overview</h3>
+              </div>
+              <div class="dashboard-card-body">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+                  <div>
+                    <span class="text-muted" style="font-size: 0.75rem;">Vehicle Number</span>
+                    <div><span class="license-plate">${booking.vehicleNo}</span></div>
+                  </div>
+                  <div>
+                    <span class="text-muted" style="font-size: 0.75rem;">Customer Name</span>
+                    <div style="font-weight: 700;">${booking.customerName}</div>
+                  </div>
+                  <div>
+                    <span class="text-muted" style="font-size: 0.75rem;">Appointment Scheduled</span>
+                    <div style="font-weight: 700;">${formatDate(booking.preferredDate)} at ${booking.timeSlot}</div>
+                  </div>
+                  <div>
+                    <span class="text-muted" style="font-size: 0.75rem;">Service Center Hub</span>
+                    <div style="font-weight: 700; font-size: 0.85rem;">${booking.serviceCenter}</div>
+                  </div>
+                </div>
+
+                <div style="margin-bottom: 1.25rem;">
+                  <span class="text-muted" style="font-size: 0.75rem;">Packages Selected:</span>
+                  <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.35rem;">
+                    ${booking.serviceNames.map(name => `<span class="badge badge-primary">${name}</span>`).join('')}
+                  </div>
+                </div>
+
+                <div style="margin-bottom: 1.25rem;">
+                  <span class="text-muted" style="font-size: 0.75rem;">Reported Problems / Notes:</span>
+                  <p style="background: var(--bg-main); padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.85rem; margin: 0.25rem 0 0;">
+                    ${booking.additionalProblems || 'Standard periodic maintenance check.'}
+                  </p>
+                </div>
+
+                ${jobCard && jobCard.inspectionNotes ? `
+                  <div style="margin-bottom: 1.25rem;">
+                    <span class="text-muted" style="font-size: 0.75rem;">Inspection Findings (Mechanic):</span>
+                    <p style="background: #eff6ff; border-left: 3px solid var(--accent); padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.85rem; margin: 0.25rem 0 0; color: #1e3a8a;">
+                      ${jobCard.inspectionNotes}
+                    </p>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="dashboard-card">
+              <div class="dashboard-card-header">
+                <h3><i class="fa-solid fa-user-gear text-accent"></i> Assigned Workshop Bay</h3>
+              </div>
+              <div class="dashboard-card-body">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+                  <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=150&q=80" alt="Lead Technician" style="width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent);">
+                  <div>
+                    <h4 style="margin: 0;">${jobCard ? jobCard.assignedTechName || 'Vikram Singh' : 'Assigning Master Technician'}</h4>
+                    <span class="text-muted" style="font-size: 0.8rem;">Lead Master Technician (Bay #2)</span>
+                  </div>
+                </div>
+
+                <div style="background: var(--bg-main); padding: 1rem; border-radius: var(--radius-md); font-size: 0.85rem; margin-bottom: 1.5rem;">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                    <span>Estimated Completion:</span>
+                    <b>Same Day 05:30 PM</b>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                    <span>Doorstep Delivery:</span>
+                    <b>${booking.pickupDrop ? 'Enabled' : 'Self Pickup'}</b>
+                  </div>
+                  <div style="display: flex; justify-content: space-between;">
+                    <span>Estimated Cost:</span>
+                    <b style="color: var(--primary); font-size: 1.05rem;">${formatCurrency(booking.estimatedCost)}</b>
+                  </div>
+                </div>
+
+                ${booking.invoiceId ? `
+                  <a href="invoice.html?id=${booking.invoiceId}" class="btn btn-success btn-block btn-lg">
+                    <i class="fa-solid fa-receipt"></i> View Tax Invoice (#${booking.invoiceId})
+                  </a>
+                ` : `
+                  <div class="text-muted text-center" style="font-size: 0.8rem;">
+                    <i class="fa-solid fa-clock"></i> Invoice will be generated upon completion of quality check.
+                  </div>
+                `}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const q = urlParams.get('id') || 'BKG-1001';
+      document.getElementById('track-query-input').value = q;
+      renderTracking(q);
+    });
+  </script>
+</body>
+</html>

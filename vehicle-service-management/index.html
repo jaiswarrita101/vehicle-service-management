@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Service Management System (VSMS) | Next-Gen Auto Care</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="vsms-navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon"><i class="fa-solid fa-car-burst"></i></div>
+        <div class="logo-text">VSMS <span>AutoCare</span></div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-item active"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="services.html" class="nav-item"><i class="fa-solid fa-screwdriver-wrench"></i> Services</a></li>
+        <li><a href="booking.html" class="nav-item"><i class="fa-solid fa-calendar-plus"></i> Book Service</a></li>
+        <li><a href="track-service.html" class="nav-item"><i class="fa-solid fa-location-dot"></i> Track Service</a></li>
+        <li><a href="customer-dashboard.html" class="nav-item"><i class="fa-solid fa-car"></i> My Vehicles</a></li>
+      </ul>
+
+      <div class="nav-cta-group">
+        <!-- Injected via main.js based on auth status -->
+        <a href="login.html" class="btn btn-outline btn-sm"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+        <a href="register.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-user-plus"></i> Register</a>
+      </div>
+
+      <button class="mobile-menu-btn" aria-label="Toggle Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <i class="fa-solid fa-shield-check"></i> ISO 9001:2025 Certified Auto Workshop
+          </div>
+          <h1 class="hero-title">
+            Complete Vehicle Service <span>Management</span> in One Place
+          </h1>
+          <p class="hero-subtitle">
+            Experience end-to-end transparent vehicle care. From multi-point periodic inspection, genuine OEM spare parts, live technician tracking, to automated billing.
+          </p>
+          <div class="hero-actions">
+            <a href="booking.html" class="btn btn-primary btn-lg">
+              <i class="fa-solid fa-calendar-check"></i> Book Service Now
+            </a>
+            <a href="track-service.html" class="btn btn-secondary btn-lg">
+              <i class="fa-solid fa-magnifying-glass-location"></i> Track Service
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hero-stat-item">
+              <h3>25,000+</h3>
+              <p>Vehicles Serviced</p>
+            </div>
+            <div class="hero-stat-item">
+              <h3>4.9 / 5.0</h3>
+              <p>Customer Rating</p>
+            </div>
+            <div class="hero-stat-item">
+              <h3>100% OEM</h3>
+              <p>Genuine Parts</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card-preview">
+          <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80" alt="Automotive Workshop Visual" class="main-img">
+          
+          <div class="floating-glass-card floating-card-1">
+            <div class="float-icon"><i class="fa-solid fa-wrench"></i></div>
+            <div>
+              <div style="font-size: 0.8rem; color: #93c5fd;">Active Job Card #JOB-2001</div>
+              <div style="font-weight: 700; font-size: 0.95rem;">Honda City ZX • In Progress</div>
+            </div>
+          </div>
+
+          <div class="floating-glass-card floating-card-2">
+            <div class="float-icon" style="background: var(--success);"><i class="fa-solid fa-shield-check"></i></div>
+            <div>
+              <div style="font-size: 0.8rem; color: #86efac;">6-Month Warranty</div>
+              <div style="font-weight: 700; font-size: 0.95rem;">Free Roadside Assistance</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quick Finder Box -->
+  <div class="container">
+    <div class="quick-finder-box">
+      <form onsubmit="handleQuickSearch(event)" class="finder-form-grid">
+        <div class="form-group">
+          <label><i class="fa-solid fa-magnifying-glass text-accent"></i> Search Service or Repair:</label>
+          <input type="text" id="quick-search-input" class="form-control" placeholder="e.g. Engine Tuning, Brake Pads, AC Gas...">
+        </div>
+        <div class="form-group">
+          <label><i class="fa-solid fa-list-check text-accent"></i> Service Category:</label>
+          <select id="quick-category-select" class="form-control">
+            <option value="All">All Categories</option>
+            <option value="General Service">General Service</option>
+            <option value="Engine">Engine & Tuning</option>
+            <option value="Brake">Brakes & Hydraulics</option>
+            <option value="AC">AC & Climate Control</option>
+            <option value="Tyres">Tyres & Wheel Care</option>
+            <option value="Battery & Electrical">Battery & Electrical</option>
+            <option value="Cleaning & Detailing">Cleaning & Detailing</option>
+            <option value="Body & Repair">Body & Dent Repair</option>
+            <option value="Bike Services">Bike & Motorcycle Services</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label><i class="fa-solid fa-car-side text-accent"></i> Vehicle Type:</label>
+          <select id="quick-vehicletype-select" class="form-control">
+            <option value="All">All Vehicles</option>
+            <option value="Car">Car</option>
+            <option value="Sedan">Sedan</option>
+            <option value="SUV">SUV</option>
+            <option value="Hatchback">Hatchback</option>
+            <option value="Bike">Bike / Motorcycle</option>
+            <option value="Scooter">Scooter</option>
+            <option value="Commercial Vehicle">Commercial Vehicle</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="height: 42px;">
+          <i class="fa-solid fa-arrow-right"></i> Find Service
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Service Categories Grid Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Comprehensive Solutions</span>
+        <h2 class="section-title">Explore Specialized Auto Services</h2>
+        <p class="section-desc">From routine oil changes to complete transmission overhauls, our certified master technicians have you covered.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1.25rem; margin-bottom: 3.5rem;">
+        <a href="services.html?category=General%20Service" class="workflow-card" style="padding: 1.25rem 1rem;">
+          <div class="workflow-number" style="background: #dbeafe; color: #2563eb;"><i class="fa-solid fa-oil-can"></i></div>
+          <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">General Service</h4>
+          <p class="text-muted" style="font-size: 0.75rem; margin: 0;">Periodic 50-Point Checks</p>
+        </a>
+
+        <a href="services.html?category=Engine" class="workflow-card" style="padding: 1.25rem 1rem;">
+          <div class="workflow-number" style="background: #fee2e2; color: #dc2626;"><i class="fa-solid fa-engine"></i></div>
+          <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Engine & Tuning</h4>
+          <p class="text-muted" style="font-size: 0.75rem; margin: 0;">Diagnostics & Overhaul</p>
+        </a>
+
+        <a href="services.html?category=Brake" class="workflow-card" style="padding: 1.25rem 1rem;">
+          <div class="workflow-number" style="background: #fef3c7; color: #d97706;"><i class="fa-solid fa-compact-disc"></i></div>
+          <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Brake Service</h4>
+          <p class="text-muted" style="font-size: 0.75rem; margin: 0;">Ceramic Pads & Rotors</p>
+        </a>
+
+        <a href="services.html?category=AC" class="workflow-card" style="padding: 1.25rem 1rem;">
+          <div class="workflow-number" style="background: #e0f2fe; color: #0284c7;"><i class="fa-solid fa-snowflake"></i></div>
+          <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">AC & Climate</h4>
+          <p class="text-muted" style="font-size: 0.75rem; margin: 0;">R134a Gas & Sanitization</p>
+        </a>
+
+        <a href="services.html?category=Tyres" class="workflow-card" style="padding: 1.25rem 1rem;">
+          <div class="workflow-number" style="background: #ede9fe; color: #7c3aed;"><i class="fa-solid fa-circle-notch"></i></div>
+          <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Tyres & Wheels</h4>
+          <p class="text-muted" style="font-size: 0.75rem; margin: 0;">3D Laser Alignment</p>
+        </a>
+
+        <a href="services.html?category=Battery%20%26%20Electrical" class="workflow-card" style="padding: 1.25rem 1rem;">
+          <div class="workflow-number" style="background: #ffedd5; color: #ea580c;"><i class="fa-solid fa-car-battery"></i></div>
+          <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Battery & Wiring</h4>
+          <p class="text-muted" style="font-size: 0.75rem; margin: 0;">CCA Test & Alternator</p>
+        </a>
+
+        <a href="services.html?category=Cleaning%20%26%20Detailing" class="workflow-card" style="padding: 1.25rem 1rem;">
+          <div class="workflow-number" style="background: #d1fae5; color: #059669;"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+          <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Detailing & Spa</h4>
+          <p class="text-muted" style="font-size: 0.75rem; margin: 0;">Foam Wash & Ceramic</p>
+        </a>
+
+        <a href="services.html?category=Bike%20Services" class="workflow-card" style="padding: 1.25rem 1rem;">
+          <div class="workflow-number" style="background: #f1f5f9; color: #0f172a;"><i class="fa-solid fa-motorcycle"></i></div>
+          <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Bike & Scooter</h4>
+          <p class="text-muted" style="font-size: 0.75rem; margin: 0;">Chain Lube & Tuning</p>
+        </a>
+      </div>
+
+      <!-- Featured Services Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+        <div>
+          <span class="section-tag">Most Booked Packages</span>
+          <h3 style="font-size: 1.75rem;">Top Rated Maintenance Services</h3>
+        </div>
+        <a href="services.html" class="btn btn-outline btn-sm">
+          View All 17+ Services <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div id="home-featured-services-grid" class="services-grid">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Complete VSMS Workflow Architecture Section -->
+  <section class="section" style="background: #ffffff; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Seamless Lifecycle</span>
+        <h2 class="section-title">The End-to-End Service Workflow</h2>
+        <p class="section-desc">VSMS connects Customers, Service Advisors, Technicians, and Inventory Managers through a seamless automated workflow.</p>
+      </div>
+
+      <div class="workflow-grid">
+        <div class="workflow-card">
+          <div class="workflow-number">1</div>
+          <h4 style="margin-bottom: 0.5rem;">Vehicle Registration</h4>
+          <p class="text-muted" style="font-size: 0.85rem; margin: 0;">Customer registers vehicle profiles with plate, brand, year, and fuel details.</p>
+        </div>
+
+        <div class="workflow-card">
+          <div class="workflow-number">2</div>
+          <h4 style="margin-bottom: 0.5rem;">Appointment Booking</h4>
+          <p class="text-muted" style="font-size: 0.85rem; margin: 0;">Select services, preferred date, and available time slots with doorstep pickup option.</p>
+        </div>
+
+        <div class="workflow-card">
+          <div class="workflow-number">3</div>
+          <h4 style="margin-bottom: 0.5rem;">Job Card & Inspection</h4>
+          <p class="text-muted" style="font-size: 0.85rem; margin: 0;">Service advisor performs intake inspection and generates the official digital job card.</p>
+        </div>
+
+        <div class="workflow-card">
+          <div class="workflow-number">4</div>
+          <h4 style="margin-bottom: 0.5rem;">Repair & Spare Parts</h4>
+          <p class="text-muted" style="font-size: 0.85rem; margin: 0;">Technician logs repair notes and consumes genuine OEM parts with live inventory deduction.</p>
+        </div>
+
+        <div class="workflow-card">
+          <div class="workflow-number">5</div>
+          <h4 style="margin-bottom: 0.5rem;">Invoice & Reminders</h4>
+          <p class="text-muted" style="font-size: 0.85rem; margin: 0;">Automated tax invoice calculation, simulated instant payments, and 6-month service reminders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real-time Tracking Teaser -->
+  <section class="section">
+    <div class="container">
+      <div style="background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); border-radius: var(--radius-xl); padding: 3.5rem; color: #ffffff; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3rem; align-items: center;">
+        <div>
+          <span class="badge badge-warning" style="margin-bottom: 1rem;">Live Status Portal</span>
+          <h2 style="color: #ffffff; font-size: 2.25rem; margin-bottom: 1rem;">Track Your Vehicle Service in Real-Time</h2>
+          <p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 2rem;">
+            No more endless phone calls. Watch each step from arrival, mechanical inspection, technician assignment, quality check, to ready for delivery.
+          </p>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="track-service.html?id=BKG-1001" class="btn btn-primary btn-lg" style="background: #38bdf8; color: #0f172a;">
+              <i class="fa-solid fa-play"></i> Try Demo Tracking (BKG-1001)
+            </a>
+            <a href="track-service.html" class="btn btn-outline btn-lg" style="border-color: #ffffff; color: #ffffff;">
+              <i class="fa-solid fa-search"></i> Search by Plate No
+            </a>
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <div style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-lg); padding: 2rem;">
+            <i class="fa-solid fa-gauge-high text-secondary" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+            <h3 style="color: #ffffff; margin-bottom: 0.5rem;">9-Stage Lifecycle</h3>
+            <p style="color: #94a3b8; font-size: 0.85rem; margin: 0;">Transparent inspection photos, technician notes, and instant digital sign-off.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Role Dashboards Quick Demo Launcher -->
+  <section class="section" style="background: #f1f5f9;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Project Evaluation & Role-Based Access</span>
+        <h2 class="section-title">Test All 5 System Stakeholder Portals</h2>
+        <p class="section-desc">Click any role below to instantly simulate the specialized dashboards built for college evaluation and practical demonstrations.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem;">
+        <div class="dashboard-card" style="margin: 0; text-align: center;">
+          <div class="dashboard-card-body">
+            <div class="stat-card-icon icon-blue" style="margin: 0 auto 1rem;"><i class="fa-solid fa-user"></i></div>
+            <h4>Customer Portal</h4>
+            <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 1.25rem;">Bookings, My Vehicles, Invoices, Service Reminders</p>
+            <button onclick="quickDemoLogin('customer')" class="btn btn-primary btn-sm btn-block">1-Click Launch</button>
+          </div>
+        </div>
+
+        <div class="dashboard-card" style="margin: 0; text-align: center;">
+          <div class="dashboard-card-body">
+            <div class="stat-card-icon icon-purple" style="margin: 0 auto 1rem;"><i class="fa-solid fa-user-tie"></i></div>
+            <h4>Service Advisor</h4>
+            <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 1.25rem;">Intake, Job Card Creation, Tech Assign, Billing</p>
+            <button onclick="quickDemoLogin('advisor')" class="btn btn-primary btn-sm btn-block">1-Click Launch</button>
+          </div>
+        </div>
+
+        <div class="dashboard-card" style="margin: 0; text-align: center;">
+          <div class="dashboard-card-body">
+            <div class="stat-card-icon icon-amber" style="margin: 0 auto 1rem;"><i class="fa-solid fa-wrench"></i></div>
+            <h4>Technician Portal</h4>
+            <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 1.25rem;">Assigned Jobs, Spare Parts Used, Stage Progression</p>
+            <button onclick="quickDemoLogin('technician')" class="btn btn-primary btn-sm btn-block">1-Click Launch</button>
+          </div>
+        </div>
+
+        <div class="dashboard-card" style="margin: 0; text-align: center;">
+          <div class="dashboard-card-body">
+            <div class="stat-card-icon icon-red" style="margin: 0 auto 1rem;"><i class="fa-solid fa-boxes-stacked"></i></div>
+            <h4>Inventory Manager</h4>
+            <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 1.25rem;">OEM Spare Parts, Stock Alerts, Restock Actions</p>
+            <button onclick="quickDemoLogin('inventory')" class="btn btn-primary btn-sm btn-block">1-Click Launch</button>
+          </div>
+        </div>
+
+        <div class="dashboard-card" style="margin: 0; text-align: center;">
+          <div class="dashboard-card-body">
+            <div class="stat-card-icon icon-green" style="margin: 0 auto 1rem;"><i class="fa-solid fa-shield-halved"></i></div>
+            <h4>Super Admin</h4>
+            <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 1.25rem;">KPI Metrics, Canvas Revenue Charts, Global Overviews</p>
+            <button onclick="quickDemoLogin('admin')" class="btn btn-primary btn-sm btn-block">1-Click Launch</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Service Assistant Widget -->
+  <button class="chatbot-toggler" id="vsms-chat-toggler" title="Auto Service AI Assistant">
+    <i class="fa-solid fa-robot"></i>
+  </button>
+
+  <div class="chatbot-popup" id="vsms-chat-popup">
+    <div class="chat-header">
+      <h4><i class="fa-solid fa-robot"></i> VSMS Service Assistant</h4>
+      <button id="vsms-chat-close" style="background:none; border:none; color:#fff; cursor:pointer; font-size:1.2rem;">&times;</button>
+    </div>
+    <div class="chat-messages" id="vsms-chat-messages">
+      <div class="chat-msg bot">
+        👋 Hello! I am your <b>VSMS Auto Care Diagnostic Assistant</b>. How can I help you today?
+        <br><br>
+        <span class="text-muted" style="font-size: 0.75rem;">*Assistant demo feature for preliminary troubleshooting advice.</span>
+      </div>
+    </div>
+    <div class="chat-quick-replies">
+      <span class="chat-chip">Strange noise from car</span>
+      <span class="chat-chip">AC is not cooling</span>
+      <span class="chat-chip">Brakes squeaking</span>
+      <span class="chat-chip">General service cost</span>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="vsms-chat-input" placeholder="Type your problem (e.g. engine overheating)...">
+      <button id="vsms-chat-send"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="vsms-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-car-burst"></i></div>
+            <div class="logo-text" style="color: #ffffff;">VSMS <span>AutoCare</span></div>
+          </div>
+          <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.25rem;">
+            Centralized Vehicle Service Management System built for modern automotive service stations, multi-brand workshops, and multi-vehicle owners.
+          </p>
+          <div style="display: flex; gap: 0.75rem;">
+            <span class="badge badge-primary">HTML5</span>
+            <span class="badge badge-info">CSS3</span>
+            <span class="badge badge-warning">Vanilla JS</span>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h4>Quick Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Service Catalogue</a></li>
+            <li><a href="booking.html">Book Appointment</a></li>
+            <li><a href="track-service.html">Live Status Tracker</a></li>
+            <li><a href="customer-dashboard.html">Customer Dashboard</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Staff Portals</h4>
+          <ul>
+            <li><a href="advisor-dashboard.html">Service Advisor Desk</a></li>
+            <li><a href="technician-dashboard.html">Technician Workshop Bay</a></li>
+            <li><a href="inventory-dashboard.html">Spare Parts Inventory</a></li>
+            <li><a href="admin-dashboard.html">Super Admin Control</a></li>
+            <li><a href="login.html">Role Authentication</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Workshop Headquarters</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6;">
+            <i class="fa-solid fa-location-dot text-accent"></i> Andheri Industrial Mega Hub, Mumbai, MH<br>
+            <i class="fa-solid fa-phone text-accent"></i> 1800-VSMS-CARE / +91 98765 43210<br>
+            <i class="fa-solid fa-envelope text-accent"></i> support@vsms-autocare.com<br>
+            <i class="fa-solid fa-clock text-accent"></i> Mon - Sat: 08:00 AM - 08:00 PM
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Vehicle Service Management System (VSMS). Final Year Computer Science Project.</div>
+        <div>Engineered with Vanilla JavaScript & LocalStorage Database Architecture.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render featured services on home
+      const featured = window.DB.getServices().slice(0, 6);
+      renderServiceCards('home-featured-services-grid', featured);
+    });
+  </script>
+</body>
+</html>
